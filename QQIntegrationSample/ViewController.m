@@ -8,14 +8,20 @@
 
 #import "ViewController.h"
 #import <TencentOpenAPI/TencentOAuth.h>
+#import <AFNetworking/AFNetworking.h>
 
 @interface ViewController ()<TencentSessionDelegate>
 {
     TencentOAuth *tencentOAuth;
+    NSString *accessToken;
+    NSString *openID;
+    NSDate *expirationDate;
 }
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *loginOutButton;
+@property (weak, nonatomic) IBOutlet UIButton *requestUserInfoButton;
 
 - (IBAction)tapBarButton:(id)sender;
+- (IBAction)tapRequestUserInfo:(id)sender;
 @end
 
 @implementation ViewController
@@ -34,23 +40,56 @@
     
     UIBarButtonItem *barButton = (UIBarButtonItem *)sender;
     
-    if ([barButton.title isEqualToString:@"Login"]) {
+    if ([barButton.title isEqualToString:@"Login"]) { //tap login button
+        
+        //request login with app id
         tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"1103266634" andDelegate:self];
         [tencentOAuth authorize:@[@"get_user_info"] inSafari:NO];
-    }else{
+        
+    }else{//tap logout button
         [tencentOAuth logout:self];
     }
 
+}
+
+//after login and get the access token, code can request user info
+- (IBAction)tapRequestUserInfo:(id)sender {
+    
+    //refer http://wiki.open.qq.com/wiki/mobile/get_simple_userinfo
+    NSDictionary *parameters = @{@"access_token":accessToken,
+                                 @"oauth_consumer_key":@"1103266634",
+                                 @"openid":openID, @"format":@"json"};
+    
+    NSError *error;
+    NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:@"https://graph.qq.com/user/get_simple_userinfo" parameters:parameters error:&error];
+
+    //Add your request object to an AFHTTPRequestOperation
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:
+     ^(AFHTTPRequestOperation *operation,
+       id responseObject) {
+         NSLog(@"response after request:%@",operation.responseString);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"error:%@",error.description);
+         
+     }];
+    
+    [operation start];
     
 }
 
 -(void)tencentDidLogin{
     if (tencentOAuth.accessToken && 0 != [tencentOAuth.accessToken length])
     {
-        //  记录登录用户的OpenID、Token以及过期时间
-        NSLog(tencentOAuth.accessToken);
+        // can get appid, accesstoken and expiereddate
         _loginOutButton.title = @"Logout";
+        _requestUserInfoButton.enabled = true;
+        accessToken = tencentOAuth.accessToken;
+        openID = tencentOAuth.openId;
+        expirationDate = tencentOAuth.expirationDate;
         
+        NSLog(@"accessToken:%@, openID:%@, expirationDate:%@",accessToken,openID,expirationDate);
     }
     else
     {
@@ -71,6 +110,7 @@
 -(void)tencentDidLogout{
     NSLog(@"Did logout");
     _loginOutButton.title = @"Login";
+    _requestUserInfoButton.enabled = false;
 }
 
 

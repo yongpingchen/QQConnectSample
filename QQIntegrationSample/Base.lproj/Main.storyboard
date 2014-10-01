@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tUS-84-qgL">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -17,25 +16,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="snc-PZ-WAf">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYa-Ei-dkk">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Request user info">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="71" y="137" width="258" height="80"/>
+                                    <rect key="frame" x="140" y="133" width="121" height="30"/>
                                 </variation>
-                            </label>
+                                <connections>
+                                    <action selector="tapRequestUserInfo:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="sDB-OX-T6c"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="snc-PZ-WAf"/>
+                                <exclude reference="iYa-Ei-dkk"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="snc-PZ-WAf"/>
+                                <include reference="iYa-Ei-dkk"/>
                             </mask>
                         </variation>
                     </view>
@@ -48,11 +50,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="loginOutButton" destination="IAG-cf-hmi" id="lRk-6x-vEI"/>
+                        <outlet property="requestUserInfoButton" destination="iYa-Ei-dkk" id="rg2-E2-Gq3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1057.5" y="140.25"/>
+            <point key="canvasLocation" x="1109" y="-456"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IgU-LZ-VtS">
@@ -70,7 +73,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vlx-o2-Efq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="108" y="-529.5"/>
+            <point key="canvasLocation" x="-121" y="-300"/>
         </scene>
     </scenes>
 </document>
