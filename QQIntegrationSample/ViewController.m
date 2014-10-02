@@ -149,7 +149,7 @@
          //3. parse the callback string
          NSDictionary *responseDict = [self parseCallBackPackage:operation.responseString];
          
-         //4. if error response
+         //4. if access token is illegal, error will be contained, or app id and open id will be returned
          if ([responseDict objectForKey:@"error"]) {
              NSLog(@"%@:%@",[responseDict objectForKey:@"error"], [responseDict objectForKey:@"error_description"]);
          }else{
