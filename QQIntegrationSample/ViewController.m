@@ -10,6 +10,77 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <AFNetworking/AFNetworking.h>
 
+//refer http://wiki.open.qq.com/wiki/mobile/%E5%85%AC%E5%85%B1%E8%BF%94%E5%9B%9E%E7%A0%81%E8%AF%B4%E6%98%8E
+typedef NS_ENUM(NSInteger, QQAPIReturnCode){
+    //QQAPI connected successfully
+    QQAPIConnectSuccess                             = 0,
+    //request without response_type parameter or with illegal response_type parameter
+    QQAPIRequestWithWrongResponseType               =100000,
+    //reqeust without client_id parameter
+    QQAPIRequestWithoutClientID                     =100001,
+    //request without client_secret parameter
+    QQAPIRequestWithoutClientSecret                 = 100002,
+    //request without Authorization in the http header
+    QQAPIRequestWithoutAuthorization                = 100003,
+    //request without grant_type parameter or with illegal grant_type parameter
+    QQAPIRequestWithWroingGrantType                 = 100004,
+    //request without code parameter
+    QQAPIRequestWithoutCode                         = 100005,
+    //request without refresh token parameter
+    QQAPIRequestWithoutRefreshToken                 = 100006,
+    //request without access token
+    QQAPIRequestWithoutAccessToken                  = 100007,
+    //the given appid not exist
+    QQAPIRequestAppIDNotExist                       = 100008,
+    //client_secret(appkey) illegal
+    QQAPIRequestWithIllegalClientSecret             = 100009,
+    //redirect uri illegal
+    QQAPIRequestWithIllegalRedirectURI              = 100010,
+    //the app is not public
+    QQAPIRequestedAPPNotPublic                      = 100011,
+    //method of http request is not POST
+    QQAPIRequestNotPost                             = 100012,
+    //illegal access token
+    QQAPIRequestWithIllegalAccessToken              = 100013,
+    //requested access token is expired
+    QQAPIRequestWithExpiredAccessToken              = 100014,
+    //requested access token is abolished
+    QQAPIRequestWithAbolishedAccessToken            = 100015,
+    //verify access token failed
+    QQAPIAccessTokenVerifiedFailed                  = 100016,
+    //request appid failed
+    QQAPIRequestAppIDFailed                         = 100017,
+    //request code failed
+    QQAPIRequestCodeFailed                          = 100018,
+    //faild to get access token by code
+    QQAPIRequestGetAccessTokenByCodeFailed          = 100019,
+    //code is reused
+    QQAPICodeReused                                 = 100020,
+    //request access token failed
+    QQAPIRequestAccessTokenFailed                   = 100021,
+    //request refresh token failed
+    QQAPIRequestRefreshTokenFailed                  = 100022,
+    //request access list of given app failed
+    QQAPIRequestAppAccessListFailed                 = 100023,
+    //request access list of given open id to given app failed
+    QQAPIRequestAccessListOfGivenOpenIDToAppIDFailed = 100024,
+    //got all information of api and groupt
+    QQAPIRequestAllInformationOfAPIANDGroup         = 100025,
+    //authorize user to given app failed
+    QQAPIAuthorizeUserToGivenAppFailed              = 100026,
+    //authorize a timing to given user for a given app
+    QQAPIAuthorizeTimingToUserFailed                = 100027,
+    //request without which parameter
+    QQAPIRequestWithoutWhichParameter               = 100028,
+    //wrong http request
+    QQAPIWroingHttpRequest                          = 100029,
+    //user not authorize the api or remove the authorization of the api
+    QQAPIWithoutAuthorizationFromUser               = 100030,
+    //the app without the authority of the api
+    QQAPIAPPWithoutAuthorizationOfAPI               = 100031,
+
+} ;
+
 @interface ViewController ()<TencentSessionDelegate>
 {
     TencentOAuth *tencentOAuth;
@@ -124,13 +195,13 @@
          NSError *error;
          NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:&error];
          if (!error) {
-             //3. check the return number, if 0 then user profile successfully get or failed
+             //3. check the return code, if 0 then user profile successfully get or failed
              NSInteger retNumber = [[responseDict objectForKey:@"ret"] integerValue];
              switch (retNumber) {
-                 case 0:
+                 case QQAPIConnectSuccess:
                      //get user profile informations
                      break;
-                 default:
+                 default://otherwise connect failed
                      //output the error message
                      NSLog(@"failed to get user profile: %@",[responseDict objectForKey:@"msg"]);
                      break;
