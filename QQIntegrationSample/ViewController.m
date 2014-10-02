@@ -127,12 +127,11 @@
  *  @param accessToken accessToken gotten after user login by QQ account
  *  @param appID       after develoepr register an app on QQ developer portal
  *
- *  @return if verify successfully reture true, or return false
  */
 -(void)verifyAccessToken: (NSString *)accessToken appID:(NSString *)appID
 {
     
-    //1. request openid from the api https://graph.qq.com/oauth2.0/me?access_token=YOUR_ACCESS_TOKEN by the access token
+    //1. GET request openid api https://graph.qq.com/oauth2.0/me?access_token=YOUR_ACCESS_TOKEN , access token as parameter
     NSDictionary *parameters = @{@"access_token":_accessToken};
     NSError *error;
     NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:@"https://graph.qq.com/oauth2.0/me" parameters:parameters error:&error];
@@ -143,7 +142,7 @@
      ^(AFHTTPRequestOperation *operation,
        id responseObject) {
          //2. a callback string will return like: callback( {"client_id":"1103266634","openid":"304348DB949394F422CECD5AE27004BA"} );
-         //or error like: callback( {"error":100016,"error_description":"access token check failed"} );
+         //if error happend will be like: callback( {"error":100016,"error_description":"access token check failed"} );
          NSLog(@"callback string:%@",operation.responseString);
          
          //3. parse the callback string
@@ -180,12 +179,14 @@
     if (rangeOfCallback.location == NSNotFound) {
         return nil;
     }else{
+        //replace the header of "callback("
         NSString *string1 = [callbackString stringByReplacingCharactersInRange:rangeOfCallback withString:@""];
         
         NSRange rangeOfCallbackEnding = [string1 rangeOfString:@");"];
         if (rangeOfCallbackEnding.location == NSNotFound) {
             return nil;
         }else{
+            //replace the ");" at the end
             NSString *resultString = [string1 stringByReplacingCharactersInRange:rangeOfCallbackEnding withString:@""];
             NSError *error;
             NSDictionary *parsedResult = [NSJSONSerialization JSONObjectWithData:[resultString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:&error];
