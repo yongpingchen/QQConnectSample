@@ -55,28 +55,7 @@
 
 //after login and get the access token, code can request user info
 - (IBAction)tapRequestUserInfo:(id)sender {
-    
-    //refer http://wiki.open.qq.com/wiki/mobile/get_simple_userinfo
-    NSDictionary *parameters = @{@"access_token":_accessToken,
-                                 @"oauth_consumer_key":@"1103266634",
-                                 @"openid":openID, @"format":@"json"};
-    
-    NSError *error;
-    NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:@"https://graph.qq.com/user/get_simple_userinfo" parameters:parameters error:&error];
-
-    //Add your request object to an AFHTTPRequestOperation
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setCompletionBlockWithSuccess:
-     ^(AFHTTPRequestOperation *operation,
-       id responseObject) {
-         NSLog(@"response after request:%@",operation.responseString);
-        
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSLog(@"error:%@",error.description);
-         
-     }];
-    
-    [operation start];
+    [self getUserProfile];
     
 }
 
@@ -119,6 +98,53 @@
     NSLog(@"Did logout");
     _loginOutButton.title = @"Login";
     _requestUserInfoButton.enabled = false;
+}
+
+/**
+ *  Request user profile after getting access token and open id
+ */
+-(void)getUserProfile{
+    
+    //1. GET request user profile from the api http://wiki.open.qq.com/wiki/mobile/get_simple_userinfo
+    NSDictionary *parameters = @{@"access_token":_accessToken,
+                                 @"oauth_consumer_key":@"1103266634",
+                                 @"openid":openID, @"format":@"json"};//response data format can be xml
+    
+    NSError *error;
+    NSMutableURLRequest *request =[[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:@"https://graph.qq.com/user/get_simple_userinfo" parameters:parameters error:&error];
+    
+    //Add your request object to an AFHTTPRequestOperation
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:
+     ^(AFHTTPRequestOperation *operation,
+       id responseObject) {
+         
+         NSLog(@"response after request:%@",operation.responseString);
+         //2. parse the response
+         NSError *error;
+         NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:&error];
+         if (!error) {
+             //3. check the return number, if 0 then user profile successfully get or failed
+             NSInteger retNumber = [[responseDict objectForKey:@"ret"] integerValue];
+             switch (retNumber) {
+                 case 0:
+                     //get user profile informations
+                     break;
+                 default:
+                     //output the error message
+                     NSLog(@"failed to get user profile: %@",[responseDict objectForKey:@"msg"]);
+                     break;
+             }
+             
+         }
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"error:%@",error.description);
+         
+     }];
+    
+    [operation start];
+
 }
 
 /**
