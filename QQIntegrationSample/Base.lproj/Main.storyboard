@@ -16,28 +16,69 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFT-GG-J1k">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Request Access Token">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="118" y="141" width="165" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="tapRequestUserInfo:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="OUY-wO-8TR"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYa-Ei-dkk">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="Request user info">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="140" y="133" width="121" height="30"/>
-                                </variation>
                                 <connections>
                                     <action selector="tapRequestUserInfo:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="sDB-OX-T6c"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6o-RO-poB">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Verify access token">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="S6o-RO-poB" secondAttribute="centerX" constant="-0.5" id="XaM-g5-R9e"/>
+                            <constraint firstItem="S6o-RO-poB" firstAttribute="centerX" secondItem="iYa-Ei-dkk" secondAttribute="centerX" id="dLs-IA-wQS"/>
+                            <constraint firstItem="S6o-RO-poB" firstAttribute="top" secondItem="iYa-Ei-dkk" secondAttribute="bottom" constant="14" id="jWq-Rk-gnX"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="S6o-RO-poB" secondAttribute="bottom" constant="593" id="z4b-00-GaE"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="yFT-GG-J1k"/>
                                 <exclude reference="iYa-Ei-dkk"/>
+                                <exclude reference="S6o-RO-poB"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="XaM-g5-R9e"/>
+                                <exclude reference="dLs-IA-wQS"/>
+                                <exclude reference="jWq-Rk-gnX"/>
+                                <exclude reference="z4b-00-GaE"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="yFT-GG-J1k"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="iYa-Ei-dkk"/>
+                                <include reference="S6o-RO-poB"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="XaM-g5-R9e"/>
+                                <include reference="dLs-IA-wQS"/>
+                                <include reference="jWq-Rk-gnX"/>
+                                <include reference="z4b-00-GaE"/>
                             </mask>
                         </variation>
                     </view>
@@ -55,7 +96,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1109" y="-456"/>
+            <point key="canvasLocation" x="1108.5" y="-456"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IgU-LZ-VtS">
