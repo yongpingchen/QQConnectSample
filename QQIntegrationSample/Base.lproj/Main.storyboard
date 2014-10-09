@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tUS-84-qgL">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,16 +20,32 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFT-GG-J1k">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Request Access Token">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="165" id="EW9-Rg-xYo"/>
+                                </constraints>
+                                <state key="normal" title="Request UserInfo">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="118" y="141" width="165" height="30"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="EW9-Rg-xYo"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="EW9-Rg-xYo"/>
+                                    </mask>
                                 </variation>
                                 <connections>
                                     <action selector="tapRequestUserInfo:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="OUY-wO-8TR"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F88-Kd-ggu">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYa-Ei-dkk">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="Request user info">
@@ -46,14 +64,29 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="F88-Kd-ggu" firstAttribute="top" secondItem="yFT-GG-J1k" secondAttribute="bottom" constant="55" id="1ga-fx-4uC">
+                                <variation key="widthClass=compact" constant="18"/>
+                            </constraint>
+                            <constraint firstItem="yFT-GG-J1k" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="699-bK-Srr"/>
+                            <constraint firstAttribute="centerY" secondItem="F88-Kd-ggu" secondAttribute="centerY" constant="-28" id="KSe-ht-LMb">
+                                <variation key="widthClass=compact" constant="-68.5"/>
+                            </constraint>
                             <constraint firstAttribute="centerX" secondItem="S6o-RO-poB" secondAttribute="centerX" constant="-0.5" id="XaM-g5-R9e"/>
                             <constraint firstItem="S6o-RO-poB" firstAttribute="centerX" secondItem="iYa-Ei-dkk" secondAttribute="centerX" id="dLs-IA-wQS"/>
                             <constraint firstItem="S6o-RO-poB" firstAttribute="top" secondItem="iYa-Ei-dkk" secondAttribute="bottom" constant="14" id="jWq-Rk-gnX"/>
+                            <constraint firstAttribute="centerX" secondItem="F88-Kd-ggu" secondAttribute="centerX" constant="10.5" id="kL3-Yy-7P2">
+                                <variation key="widthClass=compact" constant="0.0"/>
+                            </constraint>
+                            <constraint firstItem="F88-Kd-ggu" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="44" id="nXf-Mv-Cv0">
+                                <variation key="widthClass=compact" constant="-16"/>
+                            </constraint>
+                            <constraint firstAttribute="centerX" secondItem="yFT-GG-J1k" secondAttribute="centerX" constant="4.5" id="oaQ-Cc-NHu"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="S6o-RO-poB" secondAttribute="bottom" constant="593" id="z4b-00-GaE"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="yFT-GG-J1k"/>
+                                <exclude reference="F88-Kd-ggu"/>
                                 <exclude reference="iYa-Ei-dkk"/>
                                 <exclude reference="S6o-RO-poB"/>
                             </mask>
@@ -61,12 +94,27 @@
                                 <exclude reference="XaM-g5-R9e"/>
                                 <exclude reference="dLs-IA-wQS"/>
                                 <exclude reference="jWq-Rk-gnX"/>
+                                <exclude reference="699-bK-Srr"/>
+                                <exclude reference="oaQ-Cc-NHu"/>
+                                <exclude reference="1ga-fx-4uC"/>
+                                <exclude reference="KSe-ht-LMb"/>
+                                <exclude reference="kL3-Yy-7P2"/>
+                                <exclude reference="nXf-Mv-Cv0"/>
                                 <exclude reference="z4b-00-GaE"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="yFT-GG-J1k"/>
+                                <include reference="F88-Kd-ggu"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="699-bK-Srr"/>
+                                <include reference="oaQ-Cc-NHu"/>
+                                <include reference="1ga-fx-4uC"/>
+                                <include reference="KSe-ht-LMb"/>
+                                <include reference="kL3-Yy-7P2"/>
+                                <include reference="nXf-Mv-Cv0"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -92,11 +140,12 @@
                     <connections>
                         <outlet property="loginOutButton" destination="IAG-cf-hmi" id="lRk-6x-vEI"/>
                         <outlet property="requestUserInfoButton" destination="iYa-Ei-dkk" id="rg2-E2-Gq3"/>
+                        <outlet property="responseView" destination="F88-Kd-ggu" id="B38-v1-e5d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1108.5" y="-456"/>
+            <point key="canvasLocation" x="847.5" y="-366"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IgU-LZ-VtS">

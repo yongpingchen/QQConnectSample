@@ -90,6 +90,7 @@ typedef NS_ENUM(NSInteger, QQAPIReturnCode){
 }
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *loginOutButton;
 @property (weak, nonatomic) IBOutlet UIButton *requestUserInfoButton;
+@property (weak, nonatomic) IBOutlet UITextView *responseView;
 
 - (IBAction)tapBarButton:(id)sender;
 - (IBAction)tapRequestUserInfo:(id)sender;
@@ -116,7 +117,7 @@ typedef NS_ENUM(NSInteger, QQAPIReturnCode){
         
         //request login with app id
         tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"1103266634" andDelegate:self];
-        [tencentOAuth authorize:@[@"get_user_info"] inSafari:NO];
+        [tencentOAuth authorize:@[@"get_simple_userinfo"] inSafari:NO];
         
     }else{//tap logout button
         [tencentOAuth logout:self];
@@ -191,6 +192,7 @@ typedef NS_ENUM(NSInteger, QQAPIReturnCode){
        id responseObject) {
          
          NSLog(@"response after request:%@",operation.responseString);
+         [_responseView setText:operation.responseString];
          //2. parse the response
          NSError *error;
          NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableLeaves error:&error];
