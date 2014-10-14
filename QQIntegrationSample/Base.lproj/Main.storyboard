@@ -91,6 +91,7 @@
                                 <exclude reference="S6o-RO-poB"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="z4b-00-GaE"/>
                                 <exclude reference="XaM-g5-R9e"/>
                                 <exclude reference="dLs-IA-wQS"/>
                                 <exclude reference="jWq-Rk-gnX"/>
@@ -100,7 +101,6 @@
                                 <exclude reference="KSe-ht-LMb"/>
                                 <exclude reference="kL3-Yy-7P2"/>
                                 <exclude reference="nXf-Mv-Cv0"/>
-                                <exclude reference="z4b-00-GaE"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -123,10 +123,10 @@
                                 <include reference="S6o-RO-poB"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="z4b-00-GaE"/>
                                 <include reference="XaM-g5-R9e"/>
                                 <include reference="dLs-IA-wQS"/>
                                 <include reference="jWq-Rk-gnX"/>
-                                <include reference="z4b-00-GaE"/>
                             </mask>
                         </variation>
                     </view>

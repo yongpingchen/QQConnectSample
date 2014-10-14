@@ -135,6 +135,8 @@ typedef NS_ENUM(NSInteger, QQAPIReturnCode){
     [self verifyAccessToken:_accessToken appID:@"1103266634"];
 }
 
+#pragma mark TencentSessionDelegate methods
+
 -(void)tencentDidLogin{
     if (tencentOAuth.accessToken && 0 != [tencentOAuth.accessToken length])
     {
@@ -171,6 +173,8 @@ typedef NS_ENUM(NSInteger, QQAPIReturnCode){
     _loginOutButton.title = @"Login";
     _requestUserInfoButton.enabled = false;
 }
+
+#pragma mark methods to use QQ api
 
 /**
  *  Request user profile after getting access token and open id
@@ -264,6 +268,8 @@ typedef NS_ENUM(NSInteger, QQAPIReturnCode){
 
 
 }
+
+#pragma mark parser for response of QQ api
 /**
  *  parse a callback string and extract the content to dictionary
  *  assume a callback string is: callback( {"client_id":"1103266634","openid":"304348DB949394F422CECD5AE27004BA"} );
